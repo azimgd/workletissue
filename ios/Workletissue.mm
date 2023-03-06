@@ -1,10 +1,32 @@
 #import "Workletissue.h"
+#import <jsi/jsi.h>
+#import <React/RCTBridge+Private.h>
+#import <React/RCTUtils.h>
+
+using namespace facebook;
 
 @implementation Workletissue
+
+@synthesize bridge = _bridge;
+@synthesize methodQueue = _methodQueue;
+
 RCT_EXPORT_MODULE()
 
 - (NSNumber *)multiply:(double)a b:(double)b {
-    NSNumber *result = @(workletissue::multiply(a, b));
+    RCTBridge* bridge = [RCTBridge currentBridge];
+    RCTCxxBridge* cxxBridge = (RCTCxxBridge*)bridge;
+    
+    if (cxxBridge == nullptr) {
+      return @NO;
+    }
+
+    auto runtime = (jsi::Runtime*)cxxBridge.runtime;
+    if (runtime == nullptr) {
+      return @NO;
+    }
+
+  
+    NSNumber *result = @(workletissue::multiply(*runtime, bridge.jsCallInvoker));
 
     return result;
 }

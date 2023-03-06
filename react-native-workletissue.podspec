@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "11.0" }
   s.source       = { :git => "https://github.com/azimgd/react-native-workletissue.git", :tag => "#{s.version}" }
 
-  s.source_files = "ios/**/*.{h,m,mm}", "cpp/**/*.{h,cpp}"
+  s.source_files = "ios/**/*.{h,m,mm}", "cpp/**/*.{h,hpp,c,cpp}", "react-native-worklets/cpp/**/*.{h,hpp,c,cpp}"
 
   s.dependency "React-Core"
 
